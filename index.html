@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 🌸</title>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Quicksand', sans-serif;
+    background: #fff0f5;
+    min-height: 100vh;
+    overflow-x: hidden;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32'%3E%3Ctext y='24' font-size='24'%3E🌸%3C/text%3E%3C/svg%3E"), auto;
+  }
+
+  /* Floating petals background */
+  .petals-bg {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .petal {
+    position: absolute;
+    top: -60px;
+    font-size: 1.4rem;
+    animation: fall linear infinite;
+    opacity: 0.7;
+  }
+
+  @keyframes fall {
+    0%   { transform: translateY(-60px) rotate(0deg); opacity: 0.8; }
+    100% { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+  }
+
+  /* Main container */
+  .page {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 50px;
+    animation: popIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  }
+
+  .big-emoji {
+    font-size: 5rem;
+    display: block;
+    margin-bottom: 12px;
+    animation: heartbeat 1.8s ease-in-out infinite;
+  }
+
+  @keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    14%       { transform: scale(1.18); }
+    28%       { transform: scale(1); }
+    42%       { transform: scale(1.12); }
+    56%       { transform: scale(1); }
+  }
+
+  .title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 3.2rem;
+    color: #e05c8a;
+    text-shadow: 2px 2px 0 #ffd6e8;
+    margin-bottom: 8px;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: #c07090;
+    letter-spacing: 0.08em;
+  }
+
+  @keyframes popIn {
+    0%   { opacity: 0; transform: scale(0.7) translateY(-20px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+  }
+
+  /* Reason cards */
+  .reasons-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    color: #e05c8a;
+    text-align: center;
+    margin-bottom: 24px;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-bottom: 50px;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 24px 18px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(224, 92, 138, 0.12);
+    border: 2px solid #ffd6e8;
+    transition: transform 0.25s, box-shadow 0.25s;
+    animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  }
+
+  .card:hover {
+    transform: translateY(-6px) rotate(-1deg);
+    box-shadow: 0 10px 30px rgba(224, 92, 138, 0.2);
+  }
+
+  .card:nth-child(2) { animation-delay: 0.08s; }
+  .card:nth-child(3) { animation-delay: 0.16s; }
+  .card:nth-child(4) { animation-delay: 0.24s; }
+  .card:nth-child(5) { animation-delay: 0.32s; }
+  .card:nth-child(6) { animation-delay: 0.40s; }
+
+  .card-icon { font-size: 2.4rem; margin-bottom: 10px; display: block; }
+  .card-text { font-size: 0.88rem; color: #c07090; font-weight: 600; line-height: 1.4; }
+
+  /* Bouquet section */
+  .bouquet-section {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .bouquet {
+    font-size: 4rem;
+    display: inline-block;
+    animation: sway 3s ease-in-out infinite;
+    filter: drop-shadow(0 4px 8px rgba(224, 92, 138, 0.25));
+  }
+
+  @keyframes sway {
+    0%, 100% { transform: rotate(-4deg); }
+    50%       { transform: rotate(4deg); }
+  }
+
+  .bouquet-msg {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.6rem;
+    color: #e05c8a;
+    margin-top: 16px;
+    padding: 0 20px;
+  }
+
+  /* Interactive love note */
+  .lovenote-section {
+    background: #fff;
+    border-radius: 24px;
+    padding: 36px 32px;
+    border: 2px dashed #ffb3cc;
+    text-align: center;
+    margin-bottom: 50px;
+    box-shadow: 0 4px 20px rgba(224, 92, 138, 0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .lovenote-section::before {
+    content: '🌷';
+    position: absolute;
+    top: 12px; left: 16px;
+    font-size: 1.6rem;
+    opacity: 0.4;
+  }
+
+  .lovenote-section::after {
+    content: '🌷';
+    position: absolute;
+    bottom: 12px; right: 16px;
+    font-size: 1.6rem;
+    opacity: 0.4;
+  }
+
+  .lovenote-title {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    color: #e05c8a;
+    margin-bottom: 20px;
+  }
+
+  .notes-display {
+    font-size: 1.1rem;
+    color: #9b3060;
+    font-style: italic;
+    min-height: 40px;
+    margin-bottom: 20px;
+    padding: 0 10px;
+    line-height: 1.6;
+    transition: opacity 0.4s;
+  }
+
+  .spin-btn {
+    background: linear-gradient(135deg, #ff6fa8, #ff8cc2);
+    color: #fff;
+    border: none;
+    padding: 14px 36px;
+    border-radius: 50px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 111, 168, 0.4);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .spin-btn:hover {
+    transform: scale(1.06);
+    box-shadow: 0 6px 20px rgba(255, 111, 168, 0.5);
+  }
+
+  .spin-btn:active { transform: scale(0.97); }
+
+  /* Flower garden row */
+  .garden {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .flowers-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+  }
+
+  .flower-item {
+    font-size: 2rem;
+    display: inline-block;
+    animation: bloom 2s ease-in-out infinite;
+  }
+
+  .flower-item:nth-child(2) { animation-delay: 0.2s; }
+  .flower-item:nth-child(3) { animation-delay: 0.4s; }
+  .flower-item:nth-child(4) { animation-delay: 0.6s; }
+  .flower-item:nth-child(5) { animation-delay: 0.8s; }
+  .flower-item:nth-child(6) { animation-delay: 1.0s; }
+  .flower-item:nth-child(7) { animation-delay: 1.2s; }
+  .flower-item:nth-child(8) { animation-delay: 1.4s; }
+  .flower-item:nth-child(9) { animation-delay: 1.6s; }
+
+  @keyframes bloom {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    50%       { transform: scale(1.18) rotate(8deg); }
+  }
+
+  .garden-msg {
+    font-size: 0.9rem;
+    color: #c07090;
+    font-weight: 600;
+  }
+
+  /* Sparkling confetti on click */
+  .confetti-piece {
+    position: fixed;
+    pointer-events: none;
+    font-size: 1.4rem;
+    z-index: 9999;
+    animation: confettiFall 1.2s ease-out forwards;
+  }
+
+  @keyframes confettiFall {
+    0%   { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+    100% { opacity: 0; transform: translateY(120px) scale(0.4) rotate(360deg); }
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.3rem;
+    color: #e05c8a;
+    opacity: 0.7;
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s, transform 0.7s;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+
+<!-- Falling petals -->
+<div class="petals-bg" id="petals"></div>
+
+<div class="page">
+
+  <!-- Header -->
+  <div class="header">
+    <span class="big-emoji">💖</span>
+    <h1 class="title">This is for you</h1>
+    <p class="subtitle">a little corner made just for you ✨</p>
+  </div>
+
+  <!-- Reason cards -->
+  <div class="reveal">
+    <h2 class="reasons-title">reasons you're amazing 🌸</h2>
+    <div class="cards-grid">
+      <div class="card">
+        <span class="card-icon">😂</span>
+        <p class="card-text">You make me laugh like nobody else can</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🌙</span>
+        <p class="card-text">You make even ordinary days feel magical</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🍓</span>
+        <p class="card-text">You're sweeter than anything in this world</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🌻</span>
+        <p class="card-text">You brighten every room you walk into</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🫶</span>
+        <p class="card-text">Your hugs are my favourite place to be</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">⭐</span>
+        <p class="card-text">You inspire me to be a better person</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Virtual bouquet -->
+  <div class="bouquet-section reveal">
+    <div class="bouquet">💐</div>
+    <p class="bouquet-msg">"A bouquet just for you — picked with love, tied with a bow, and delivered with the biggest smile."</p>
+  </div>
+
+  <!-- Spinning love notes -->
+  <div class="lovenote-section reveal">
+    <h2 class="lovenote-title">open a love note 💌</h2>
+    <p class="notes-display" id="noteDisplay">tap the button for a little surprise...</p>
+    <button class="spin-btn" onclick="showNote()">✨ Open a Note ✨</button>
+  </div>
+
+  <!-- Flower garden -->
+  <div class="garden reveal">
+    <div class="flowers-row">
+      <span class="flower-item">🌸</span>
+      <span class="flower-item">🌺</span>
+      <span class="flower-item">🌼</span>
+      <span class="flower-item">🌷</span>
+      <span class="flower-item">🌹</span>
+      <span class="flower-item">🪷</span>
+      <span class="flower-item">💐</span>
+      <span class="flower-item">🌻</span>
+      <span class="flower-item">🌸</span>
+    </div>
+    <p class="garden-msg">a whole garden, just for you 🌿</p>
+  </div>
+
+  <div class="footer reveal">
+    made with every bit of love i have 💗
+  </div>
+
+</div>
+
+<script>
+  const notes = [
+    "I love the way your eyes light up when you talk about things you love. 🌟",
+    "Waking up and knowing you exist makes me happy before the day even starts. ☀️",
+    "You are my favourite notification, my favourite distraction, my favourite everything. 📱💕",
+    "I could write a thousand notes and still not say enough about how wonderful you are. 📝",
+    "The world is a genuinely better place because you're in it. 🌍💖",
+    "I think about you more than I'd ever admit — and I'm admitting it right now. 🫣💗",
+    "You deserve all the flowers, all the sunsets, and all the good things ever. 🌺🌅",
+    "Somehow, every day with you is my new favourite day. 📅✨",
+    "Thank you for being exactly you — nothing more, nothing less, just perfectly you. 🫶",
+    "I'm so lucky it's actually a little embarrassing. 🍀😊",
+  ];
+
+  let lastIdx = -1;
+
+  function showNote() {
+    let idx;
+    do { idx = Math.floor(Math.random() * notes.length); } while (idx === lastIdx);
+    lastIdx = idx;
+
+    const display = document.getElementById('noteDisplay');
+    display.style.opacity = 0;
+    setTimeout(() => {
+      display.textContent = notes[idx];
+      display.style.opacity = 1;
+    }, 300);
+  }
+
+  // Falling petals
+  const petalEmojis = ['🌸','🌺','🌷','🪷','💮','🌼'];
+  const container = document.getElementById('petals');
+
+  function spawnPetal() {
+    const el = document.createElement('div');
+    el.className = 'petal';
+    el.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.fontSize = (1 + Math.random() * 1.2) + 'rem';
+    const dur = 5 + Math.random() * 6;
+    el.style.animationDuration = dur + 's';
+    el.style.animationDelay = (Math.random() * 3) + 's';
+    container.appendChild(el);
+    setTimeout(() => el.remove(), (dur + 4) * 1000);
+  }
+
+  for (let i = 0; i < 18; i++) spawnPetal();
+  setInterval(spawnPetal, 800);
+
+  // Click sparkles
+  document.addEventListener('click', function(e) {
+    const sparkles = ['💗','✨','🌸','💕','⭐','🌷','🫶'];
+    for (let i = 0; i < 6; i++) {
+      const el = document.createElement('div');
+      el.className = 'confetti-piece';
+      el.textContent = sparkles[Math.floor(Math.random() * sparkles.length)];
+      el.style.left = (e.clientX + (Math.random() - 0.5) * 60) + 'px';
+      el.style.top = (e.clientY + (Math.random() - 0.5) * 40) + 'px';
+      el.style.fontSize = (0.9 + Math.random() * 0.8) + 'rem';
+      document.body.appendChild(el);
+      setTimeout(() => el.remove(), 1300);
+    }
+  });
+
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.15 });
+  reveals.forEach(r => observer.observe(r));
+</script>
+</body>
+</html>
